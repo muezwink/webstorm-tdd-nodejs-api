@@ -1,29 +1,14 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
-const hostname = '127.0.0.1';
-const port = 3000;
+function logger(req, res, next) {
+    console.log('i am logger');
+}
 
-const server = http.createServer((req, res) => {
+app.use(logger);
 
-    console.log(req.url);
-
-    if(req.url === '/') {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end('Hello World\n');
-    } else if(req.url === '/users') {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end('User list\n');
-    } else {
-        res.status = 404;
-        res.end('Not Found');
-    }
+app.listen(3000, function() {
+   console.log('Server is running');
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
-
-// curl -X GET 'localhost:3000'
-// curl
+// npm install express
